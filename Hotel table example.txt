@@ -1,0 +1,49 @@
+TABLE MENU IN THE HOTEL:
+
+hotel table: create table hotel (id int, name_of_the_food varchar(45), rate int);
+             After inserting values,
++------+------------------+------+
+| id   | name_of_the_food | rate |
++------+------------------+------+
+| 1001 | Swagath          |   10 |
+| 1002 | Bawarchi         |   10 |
+| 1003 | Tasty bites      |    9 |
+| 1004 | Kritunga         |    8 |
+| 1005 | Paradise         |   10 |
+| 1006 | Zest kitchen     |    9 |
++------+------------------+------+
+              using alter table and adding types of food and place
++------+------------------+------+--------------+-------+
+| id   | name_of_the_food | rate | type_of_food | place |
++------+------------------+------+--------------+-------+
+| 1001 | biryani          |   10 | NULL         | NULL  |
+| 1002 | pasta            |   10 | NULL         | NULL  |
+| 1003 | puri             |    9 | NULL         | NULL  |
+| 1004 | dosa             |    8 | NULL         | NULL  |
+| 1005 | noodles          |   10 | NULL         | NULL  |
+| 1006 | idli             |    9 | NULL         | NULL  |
++------+------------------+------+--------------+-------+
+               inserting values into new columns
++------+------------------+------+--------------+-----------+
+| id   | name_of_the_food | rate | type_of_food | place     |
++------+------------------+------+--------------+-----------+
+| 1001 | biryani          |   10 | indian       | hyderabad |
+| 1002 | pasta            |   10 | italian      | bangalore |
+| 1003 | puri             |    9 | south indian | kerala    |
+| 1004 | dosa             |    8 | south indian | chennai   |
+| 1005 | noodles          |   10 | chinese      | goa       |
+| 1006 | idli             |    9 | south indian | andhra    |
++------+------------------+------+--------------+-----------+
+
+                finding food a/c to place using subquery
++------------------+--------------+
+| name_of_the_food | type_of_food |
++------------------+--------------+
+| biryani          | indian       |
++------------------+--------------+
+
+
+
+
+
+              
