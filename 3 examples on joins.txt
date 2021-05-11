@@ -1,0 +1,234 @@
+EXAMPLE 1:
+
+members table:
+
++----+------------+-----------+----------+
+| id | first_name | last_name | movie_id |
++----+------------+-----------+----------+
+|  1 | Adam       | Smith     |        1 |
+|  2 | Ravi       | Kumar     |        2 |
+|  3 | Susan      | Davidson  |        5 |
+|  4 | Jenny      | Adrianna  |        8 |
+|  6 | Lee        | Pong      |       10 |
++----+------------+-----------+----------+
+
+movies table:
+
++----+--------------------------+------------+
+| id | title                    | category   |
++----+--------------------------+------------+
+|  1 | Assasins creed           | Animations |
+|  2 | Real steel               | Animations |
+|  3 | Alvin and the chipmunks  | Animations |
+|  4 | The adventures of tintin | Animations |
+|  5 | Safe                     | Action     |
+|  6 | Safehouse                | Action     |
+|  7 | Gia                      | 18+        |
+|  8 | Deadline                 | 18+        |
+|  9 | The dirty picture        | 18+        |
+| 10 | Marley and me            | Romance    |
++----+--------------------------+------------+
+
+Inner join:  select members.first_name, members.last_name, movies.title
+          -> from members,movies
+          -> where movies.id = members.movie_id;
++------------+-----------+----------------+
+| first_name | last_name | title          |
++------------+-----------+----------------+
+| Adam       | Smith     | Assasins creed |
+| Ravi       | Kumar     | Real steel     |
+| Susan      | Davidson  | Safe           |
+| Jenny      | Adrianna  | Deadline       |
+| Lee        | Pong      | Marley and me  |
++------------+-----------+----------------+
+
+Left join:   select movies.title, members.first_name, members.last_name
+          -> from movies
+          -> left join members
+          -> on members.movie_id = movies.id;
++--------------------------+------------+-----------+
+| title                    | first_name | last_name |
++--------------------------+------------+-----------+
+| Assasins creed           | Adam       | Smith     |
+| Real steel               | Ravi       | Kumar     |
+| Alvin and the chipmunks  | NULL       | NULL      |
+| The adventures of tintin | NULL       | NULL      |
+| Safe                     | Susan      | Davidson  |
+| Safehouse                | NULL       | NULL      |
+| Gia                      | NULL       | NULL      |
+| Deadline                 | Jenny      | Adrianna  |
+| The dirty picture        | NULL       | NULL      |
+| Marley and me            | Lee        | Pong      |
++--------------------------+------------+-----------+
+
+Right join:    select members.first_name, members.last_name, movies.title
+            -> from members
+            -> right join movies
+            -> on  movies.id = members.movie_id;
++------------+-----------+--------------------------+
+| first_name | last_name | title                    |
++------------+-----------+--------------------------+
+| Adam       | Smith     | Assasins creed           |
+| Ravi       | Kumar     | Real steel               |
+| NULL       | NULL      | Alvin and the chipmunks  |
+| NULL       | NULL      | The adventures of tintin |
+| Susan      | Davidson  | Safe                     |
+| NULL       | NULL      | Safehouse                |
+| NULL       | NULL      | Gia                      |
+| Jenny      | Adrianna  | Deadline                 |
+| NULL       | NULL      | The dirty picture        |
+| Lee        | Pong      | Marley and me            |
++------------+-----------+--------------------------+
+
+
+
+EXAMPLE 2:
+
+suppliers table:
+
++-------------+---------------+
+| supplier_id | supplier_name |
++-------------+---------------+
+|       10000 | IBM           |
+|       10001 | HP            |
+|       10002 | MICROSOFT     |
+|       10003 | NVIDIA        |
++-------------+---------------+
+
+orders table:
+
++----------+-------------+------------+
+| order_id | supplier_id | order_date |
++----------+-------------+------------+
+|   500125 |       10000 | 2013/05/12 |
+|   500126 |       10001 | 2013/05/13 |
+|   500127 |       10004 | 2013/05/14 |
++----------+-------------+------------+
+
+Inner join:   select suppliers.supplier_id,suppliers.supplier_name, orders.order_date from suppliers inner join orders on suppliers.supplier_id= orders.supplier_id;
+
++-------------+---------------+------------+
+| supplier_id | supplier_name | order_date |
++-------------+---------------+------------+
+|       10000 | IBM           | 2013/05/12 |
+|       10001 | HP            | 2013/05/13 |
++-------------+---------------+------------+
+
+Left join:   select suppliers.supplier_id, suppliers.supplier_name, orders.order_date from suppliers left join orders on suppliers.supplier_id = orders.supplier_id;
+
++-------------+---------------+------------+
+| supplier_id | supplier_name | order_date |
++-------------+---------------+------------+
+|       10000 | IBM           | 2013/05/12 |
+|       10001 | HP            | 2013/05/13 |
+|       10002 | MICROSOFT     | NULL       |
+|       10003 | NVIDIA        | NULL       |
++-------------+---------------+------------+
+
+Right join:   select orders.order_id, orders.order_date, suppliers.supplier_name from suppliers right join orders on suppliers.supplier_id = orders.supplier_id;
+
++----------+------------+---------------+
+| order_id | order_date | supplier_name |
++----------+------------+---------------+
+|   500125 | 2013/05/12 | IBM           |
+|   500126 | 2013/05/13 | HP            |
+|   500127 | 2013/05/14 | NULL          |
++----------+------------+---------------+
+
+
+
+
+Example 3:
+
+manufacturer table:
+
++---------+------------+
+| prod_id | manu_name  |
++---------+------------+
+|   10000 | Maruti     |
+|   10001 | volkswagen |
+|   10002 | ford       |
+|   10003 | audi       |
+|   10004 | bmw        |
++---------+------------+
+
+production table: 
+
++----------+---------+-------------+
+| model_id | prod_id | vehicletype |
++----------+---------+-------------+
+|   500600 |   10000 | 4wheeler    |
+|   500700 |   10001 | 4wheeler    |
+|   500800 |   10002 | 4wheeler    |
++----------+---------+-------------+
+
+Inner join:   select  manufacturer.prod_id, manufacturer.manu_name,production.vehicletype from manufacturer inner join production on manufacturer. prod_id = production.prod_id;
+
++---------+------------+-------------+
+| prod_id | manu_name  | vehicletype |
++---------+------------+-------------+
+|   10000 | Maruti     | 4wheeler    |
+|   10001 | volkswagen | 4wheeler    |
+|   10002 | ford       | 4wheeler    |
++---------+------------+-------------+
+
+Left join:   select  manufacturer.prod_id, manufacturer.manu_name,production.vehicletype from manufacturer left join production on manufacturer. prod_id = production.prod_id;
+
++---------+------------+-------------+
+| prod_id | manu_name  | vehicletype |
++---------+------------+-------------+
+|   10000 | Maruti     | 4wheeler    |
+|   10001 | volkswagen | 4wheeler    |
+|   10002 | ford       | 4wheeler    |
+|   10003 | audi       | NULL        |
+|   10004 | bmw        | NULL        |
++---------+------------+-------------+
+
+Right join:   select production.model_id, production.vehicletype, manufacturer.manu_name from manufacturer right join production on manufacturer.prod_id= production.prod_id;
+
++----------+-------------+------------+
+| model_id | vehicletype | manu_name  |
++----------+-------------+------------+
+|   500600 | 4wheeler    | Maruti     |
+|   500700 | 4wheeler    | volkswagen |
+|   500800 | 4wheeler    | ford       |
++----------+-------------+------------+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
